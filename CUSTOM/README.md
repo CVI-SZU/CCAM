@@ -33,7 +33,7 @@ train_transform = transforms.Compose([
     ])
 ```
 
-3. To train CCAM
+3. To train CCAM on the custom dataset
 
 ```
 OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=5 python train_CCAM.py --tag CCAM_Maket1501_MOCO --batch_size 128 --pretrained mocov2 --alpha 0.25
@@ -47,31 +47,9 @@ The code will create experiment folders for model checkpoints (./experiment/mode
 |   ├—— images
 ```
 
-The activation maps (visualization and .npy files) will be save at 
+## Visualization
 
-```
-├── experiments/
-|   ├── predictions
-|   |   ├—— CCAM_CUB_MOCO@train@scale=0.5,1.0,1.5,2.0
-├── vis_cam/
-|   ├── CCAM_CUB_MOCO@train@scale=0.5,1.0,1.5,2.0
-```
-
-3. To extract background cues
-
-```
-OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python inference_crf.py --experiment_name CCAM_VOC12_MOCO@train@scale=0.5,1.0,1.5,2.0 --threshold 0.3 --crf_iteration 10 --domain train
-```
-
-The background cues will be save at 
-
-```
-├── experiments/
-|   ├── predictions
-|   |   ├—— CCAM_VOC12_MOCOV2@train@scale=0.5,1.0,1.5,2.0@t=0.3@ccam_inference_crf=10
-```
-
-You can use the extracted background cues as pseudo supervision signal to train a saliency detector like [PoolNet](https://github.com/backseason/PoolNet) to further refine the background cues, and we provide our refined background cues at [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b).
+![](Market1501.png)
 
 ### Reference
 
@@ -85,6 +63,4 @@ If you are using our code, please consider citing our paper.
   year={2022}
 }
 ```
-
-This repository was based on PuzzleCAM and thanks for [Sanghyun Jo](https://github.com/OFRIN/PuzzleCAM) providing great codes.
 
