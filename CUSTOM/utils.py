@@ -42,7 +42,7 @@ def accuracy(output, target, topk=(1,)):
 import cmapy
 def visualize_heatmap(experiments, images, attmaps, epoch, cnt, phase='train', seg=False):
     n = int(np.sqrt(images.shape[0]))
-    utils.save_image(images, './experiments/images/{}/{}/epoch-{}-{}-pri.jpg'.format(experiments, phase, epoch, cnt), nrow=n,
+    utils.save_image(images, './experiments/images/{}/{}/{}-{}-pri.jpg'.format(experiments, phase, epoch, cnt), nrow=n,
                      normalize=True)
     _, c, h, w = images.shape
     fig, axes = plt.subplots(n, n, figsize=(21, 21))
@@ -54,7 +54,7 @@ def visualize_heatmap(experiments, images, attmaps, epoch, cnt, phase='train', s
                 temp = cv2.resize(temp, (w, h), interpolation=cv2.INTER_CUBIC)
             axes[j, k].imshow(temp)
             axes[j, k].axis('off')
-    plt.savefig('./experiments/images/{}/{}/epoch-{}-{}-att.jpg'.format(experiments, phase, epoch, cnt))
+    plt.savefig('./experiments/images/{}/{}/{}-{}-att.jpg'.format(experiments, phase, epoch, cnt))
     plt.close()
 
     fig, axes = plt.subplots(n, n, figsize=(21, 21))
@@ -66,7 +66,7 @@ def visualize_heatmap(experiments, images, attmaps, epoch, cnt, phase='train', s
             axes[j, k].set_xlabel('Intensity')
             axes[j, k].set_ylabel('Density')
             # axes[j, k].axis('off')
-    plt.savefig('./experiments/images/{}/{}/epoch-{}-{}-hist.jpg'.format(experiments, phase, epoch, cnt))
+    plt.savefig('./experiments/images/{}/{}/{}-{}-hist.jpg'.format(experiments, phase, epoch, cnt))
     plt.close()
 
     attmaps = attmaps.squeeze().to('cpu').detach().numpy()
@@ -77,7 +77,7 @@ def visualize_heatmap(experiments, images, attmaps, epoch, cnt, phase='train', s
         attmap = np.uint8(attmap * 255)
         colormap = cv2.applyColorMap(cv2.resize(attmap, (w, h)), cmapy.cmap('seismic'))
         # save .npy data
-        # np.save('./experiments/images/{}/{}/colormaps/epoch-{}-{}-image.npy'.format(experiments, phase, cnt, i), attmap)
+        # np.save('./experiments/images/{}/{}/colormaps/{}-{}-image.npy'.format(experiments, phase, cnt, i), attmap)
 
         grid = utils.make_grid(images[i].unsqueeze(0), nrow=1, padding=0, pad_value=0,
                          normalize=True, range=None)
@@ -88,15 +88,15 @@ def visualize_heatmap(experiments, images, attmaps, epoch, cnt, phase='train', s
         cam = cam / np.max(cam)
         cam = np.uint8(cam * 255).copy()
 
-        cv2.imwrite('./experiments/images/{}/{}/colormaps/epoch-{}-{}-image.jpg'.format(experiments, phase, cnt, i), image)
-        cv2.imwrite('./experiments/images/{}/{}/colormaps/epoch-{}-{}-colormap.jpg'.format(experiments, phase, cnt, i), cam)
+        cv2.imwrite('./experiments/images/{}/{}/colormaps/{}-{}-image.jpg'.format(experiments, phase, cnt, i), image)
+        cv2.imwrite('./experiments/images/{}/{}/colormaps/{}-{}-colormap.jpg'.format(experiments, phase, cnt, i), cam)
 
         if seg:
             h, w, c = image.shape
             attmap = cv2.resize(attmap, (h, w), interpolation=cv2.INTER_LINEAR)
             mask = np.where(attmap > 150, 1, 0).reshape(h, w, 1)
             temp = np.uint8(image*mask)
-            cv2.imwrite('./experiments/images/{}/{}/colormaps/epoch-{}-{}-seg.jpg'.format(experiments, phase, cnt, i), temp)
+            cv2.imwrite('./experiments/images/{}/{}/colormaps/{}-{}-seg.jpg'.format(experiments, phase, cnt, i), temp)
 
 
 def normalize_scoremap(alm):
