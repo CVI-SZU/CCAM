@@ -1,6 +1,6 @@
 ### For WSSS task
 
-Download the pretrained parameters (e.g., moco and detco) at [here](https://drive.google.com/file/d/1W9f8Jy0m-SOurvU1sFLvp4--xIKCvpzB/view) and put them in the current directory.
+Download the pretrained parameters (e.g., moco and detco) at [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b?usp=sharing) and put them in the current directory.
 
 ```
 ├── WSSS/
@@ -62,7 +62,7 @@ The background cues will be save at
 |   |   ├—— CCAM_VOC12_MOCOV2@train@scale=0.5,1.0,1.5,2.0@t=0.3@ccam_inference_crf=10
 ```
 
-You can use the extracted background cues as pseudo supervision signal to train a saliency detector like [PoolNet](https://github.com/backseason/PoolNet) to further refine the background cues, and we provide our refined background cues at [here]().
+You can use the extracted background cues as pseudo supervision signal to train a saliency detector like [PoolNet](https://github.com/backseason/PoolNet) to further refine the background cues, and we provide our refined background cues at [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b).
 
 ### Reference
 

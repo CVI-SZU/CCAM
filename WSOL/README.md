@@ -1,48 +1,108 @@
-### For WSOL task
+# CCAM
 
-Download the pretrained parameters (e.g., moco and detco) at [here](https://drive.google.com/file/d/1W9f8Jy0m-SOurvU1sFLvp4--xIKCvpzB/view) and put them in the current directory.
+Code repository for our
+paper "[CCAM: Contrastive learning of Class-agnostic Activation Map for Weakly Supervised Object Localization and Semantic Segmentation](https://arxiv.org/pdf/2203.13505.pdf)"
+in CVPR 2022.
 
-```
-├── WSOL/
-|   ├── config
-|   ├—— ...
-|   ├—— moco_r50_v2-e3b0c442.pth
-|   └── detco_200ep.pth
-```
+![](images/CCAM_Network.png)
 
-Train CCAM on CUB-200-2011 dataset (supervised parameters) 
+The repository includes full training, evaluation, and visualization codes
+on [CUB-200-2011](http://www.vision.caltech.edu/visipedia/CUB-200.html), [ILSVRC2012](https://image-net.org/challenges/LSVRC/2012/), and [PASCAL VOC2012](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/) datasets.
 
-```
-OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_CUB.py --experiment CCAM_CUB_IP --lr 0.0001 --batch_size 16 --pretrained supervised --alpha 0.05
-```
+## Dependencies
 
-Train CCAM on CUB-200-2011 dataset (unsupervised parameters) 
+* Python 3
+* PyTorch 1.7.1
+* OpenCV-Python
+* Numpy
+* Scipy
+* MatplotLib
+* Yaml
+* Easydict
 
-```
-OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_CUB.py --experiment CCAM_CUB_MOCO --lr 0.0001 --batch_size 16 --pretrained mocov2 --alpha 0.75
-```
+## Dataset
 
-or
+### CUB-200-2011
 
-```
-OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_CUB.py --experiment CCAM_CUB_DETCO --lr 0.0001 --batch_size 16 --pretrained detco --alpha 0.75
-```
-
-The code will create experiment folders for model checkpoints (./debug/checkpoint), log files (./log) and visualization (./debug/images/).
+You will need to download the images (JPEG format) in CUB-200-2011 dataset
+at [here](http://www.vision.caltech.edu/visipedia/CUB-200.html). Make sure your ```data/CUB_200_2011``` folder is structured as
+follows:
 
 ```
-├── debug/
-|   ├── checkpoints
-|   ├—— images
-|   |   ├—— CCAM_CUB_MOCO
-|   |   |   ├—— train
-|   |   |   ├—— test
-|   |   ├—— ...
+├── CUB_200_2011/
+|   ├── images
+|   ├── images.txt
+|   ├── bounding_boxes.txt
+|   ...
+|   └── train_test_split.txt
 ```
 
-We also provide the extracted class-agnositc bounding boxes at [here]().
+You will need to download the images (JPEG format) in ILSVRC2012 dataset at [here](https://image-net.org/challenges/LSVRC/2012/).
+Make sure your ```data/ILSVRC2012``` folder is structured as follows:
 
-### Reference
+### ILSVRC2012
+
+```
+├── ILSVRC2012/ 
+|   ├── train
+|   ├── val
+|   ├── val_boxes
+|   |   ├——val
+|   |   |   ├—— ILSVRC2012_val_00050000.xml
+|   |   |   ├—— ...
+|   ├── train.txt
+|   └── val.txt
+```
+
+### PASCAL VOC2012
+
+You will need to download the images (JPEG format) in PASCAL VOC2012 dataset at [here](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/).
+Make sure your ```data/VOC2012``` folder is structured as follows:
+
+```
+├── VOC2012/
+|   ├── Annotations
+|   ├── ImageSets
+|   ├── SegmentationClass
+|   ├── SegmentationClassAug
+|   └── SegmentationObject
+```
+
+## For WSOL task
+
+please refer to the directory of './WSOL'
+
+```
+cd WSOL
+```
+
+## For WSSS task
+
+please refer to the directory of './WSSS'
+
+```
+cd WSSS
+```
+
+### Comparison with CAM
+
+![](images/CCAM_Heatmap.png)
+
+### Extracted Background Cues
+
+![](images/CCAM_Background.png)
+
+## CUSTOM DATASET [TODO]
+
+As CCAM is an unsupervised method, it can be applied to various scenarios, like ReID, Saliency detection, or skin lesion detection. We provide an example to apply CCAM on your custom dataset like 'Market-1501'.
+
+```
+cd CUSTOM
+```
+
+
+
+## Reference
 
 If you are using our code, please consider citing our paper.
 
@@ -54,4 +114,3 @@ If you are using our code, please consider citing our paper.
   year={2022}
 }
 ```
-

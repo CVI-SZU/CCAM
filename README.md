@@ -84,12 +84,6 @@ please refer to the directory of './WSSS'
 cd WSSS
 ```
 
-## CUSTOM DATASET
-
-```
-cd CUSTOM
-```
-
 ### Comparison with CAM
 
 ![](images/CCAM_Heatmap.png)
@@ -97,6 +91,16 @@ cd CUSTOM
 ### Extracted Background Cues
 
 ![](images/CCAM_Background.png)
+
+## CUSTOM DATASET [TODO]
+
+As CCAM is an unsupervised method, it can be applied to various scenarios, like ReID, Saliency detection, or skin lesion detection. We provide an example to apply CCAM on your custom dataset like 'Market-1501'.
+
+```
+cd CUSTOM
+```
+
+
 
 ## Reference
 
