@@ -92,7 +92,7 @@ cd WSSS
 
 ![](images/CCAM_Heatmap.png)
 
-## CUSTOM DATASET [TODO]
+## CUSTOM DATASET
 
 As CCAM is an unsupervised method, it can be applied to various scenarios, like ReID, Saliency detection, or skin lesion detection. We provide an example to apply CCAM on your custom dataset like 'Market-1501'.
 
