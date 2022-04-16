@@ -1,46 +1,68 @@
-### For WSOL task
+### For WSSS task
 
 Download the pretrained parameters (e.g., moco and detco) at [here](https://drive.google.com/file/d/1W9f8Jy0m-SOurvU1sFLvp4--xIKCvpzB/view) and put them in the current directory.
 
 ```
-├── WSOL/
-|   ├── config
+├── WSSS/
+|   ├── core
 |   ├—— ...
 |   ├—— moco_r50_v2-e3b0c442.pth
 |   └── detco_200ep.pth
 ```
 
-Train CCAM on CUB-200-2011 dataset (supervised parameters) 
+1. Train CCAM on PASCAL VOC2012 dataset (unsupervised parameters) 
 
 ```
-OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_CUB.py --experiment CCAM_CUB_IP --lr 0.0001 --batch_size 16 --pretrained supervised --alpha 0.05
-```
-
-Train CCAM on CUB-200-2011 dataset (unsupervised parameters) 
-
-```
-OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_CUB.py --experiment CCAM_CUB_MOCO --lr 0.0001 --batch_size 16 --pretrained mocov2 --alpha 0.75
+OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_VOC12.py --experiment CCAM_VOC12_MOCO --batch_size 128 --pretrained mocov2 --alpha 0.25
 ```
 
 or
 
 ```
-OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_CUB.py --experiment CCAM_CUB_DETCO --lr 0.0001 --batch_size 16 --pretrained detco --alpha 0.75
+OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_VOC12.py --experiment CCAM_VOC12_MOCO --batch_size 128 --pretrained detco --alpha 0.25
 ```
 
-The code will create experiment folders for model checkpoints (./debug/checkpoint), log files (./log) and visualization (./debug/images/).
+We recommend to adopt a batch size 128 for better performance, but you can try another one like 32 if the memory of your device is not enough. (We trained CCAM on Tesla A100 with 40GB memory.)
+
+The code will create experiment folders for model checkpoints (./experiment/models), log files (.experiments/log) and visualization (./debug/images/).
 
 ```
-├── debug/
+├── experiments/
 |   ├── checkpoints
 |   ├—— images
-|   |   ├—— CCAM_CUB_MOCO
-|   |   |   ├—— train
-|   |   |   ├—— test
-|   |   ├—— ...
 ```
 
-We also provide the extracted class-agnositc bounding boxes at [here]().
+2. To extract class-agnostic activation maps
+
+```
+OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python inference_CCAM.py --tag CCAM_VOC12_MOCO --domain train
+```
+
+The activation maps (visualization and .npy files) will be save at 
+
+```
+├── experiments/
+|   ├── predictions
+|   |   ├—— CCAM_CUB_MOCO@train@scale=0.5,1.0,1.5,2.0
+├── vis_cam/
+|   ├── CCAM_CUB_MOCO@train@scale=0.5,1.0,1.5,2.0
+```
+
+3. To extract background cues
+
+```
+OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python inference_crf.py --experiment_name CCAM_VOC12_MOCO@train@scale=0.5,1.0,1.5,2.0 --threshold 0.3 --crf_iteration 10 --domain train
+```
+
+The background cues will be save at 
+
+```
+├── experiments/
+|   ├── predictions
+|   |   ├—— CCAM_VOC12_MOCOV2@train@scale=0.5,1.0,1.5,2.0@t=0.3@ccam_inference_crf=10
+```
+
+You can use the extracted background cues as pseudo supervision signal to train a saliency detector like [PoolNet](https://github.com/backseason/PoolNet) to further refine the background cues, and we provide our refined background cues at [here]().
 
 ### Reference
 
@@ -54,4 +76,6 @@ If you are using our code, please consider citing our paper.
     year      = {2022},
 }
 ```
+
+This repository was based on PuzzleCAM and thanks for [Sanghyun Jo](https://github.com/OFRIN/PuzzleCAM) providing great codes.
 
