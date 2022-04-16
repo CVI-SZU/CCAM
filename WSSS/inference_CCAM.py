@@ -171,9 +171,9 @@ if __name__ == '__main__':
         
         # inferenece
         _, _, cam = model(images, inference=True)
-        flag = check_positive(cam.clone())
-        if flag:
-            cam = 1 - cam
+        # flag = check_positive(cam.clone())
+        # if flag:
+        #     cam = 1 - cam
         # postprocessing
         cams = F.relu(cam)
         # cams = torch.sigmoid(features)
