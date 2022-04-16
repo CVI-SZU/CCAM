@@ -70,7 +70,7 @@ Make sure your ```data/VOC2012``` folder is structured as follows:
 
 ## For WSOL task
 
-please refer to the director of './WSOL'
+please refer to the directory of './WSOL'
 
 ```
 cd WSOL
@@ -78,7 +78,7 @@ cd WSOL
 
 ## For WSSS task
 
-please refer to the director of './WSSS'
+please refer to the directory of './WSSS'
 
 ```
 cd WSSS
