@@ -1,79 +1,108 @@
-### For your custom datasets
+# CCAM
 
-Download the pretrained parameters (e.g., moco and detco) at [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b?usp=sharing) and put them in the current directory.
+Code repository for our
+paper "[CCAM: Contrastive learning of Class-agnostic Activation Map for Weakly Supervised Object Localization and Semantic Segmentation](https://arxiv.org/pdf/2203.13505.pdf)"
+in CVPR 2022.
 
-```
-├── WSSS/
-|   ├── core
-|   ├—— ...
-|   ├—— moco_r50_v2-e3b0c442.pth
-|   └── detco_200ep.pth
-```
+![](images/CCAM_Network.png)
 
-1. Let's take the Market1501 dataset as an example. Make sure your ```data/Market1501``` folder is structured as follows:
+The repository includes full training, evaluation, and visualization codes
+on [CUB-200-2011](http://www.vision.caltech.edu/visipedia/CUB-200.html), [ILSVRC2012](https://image-net.org/challenges/LSVRC/2012/), and [PASCAL VOC2012](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/) datasets.
 
-```
-├── bounding_box_train/ 
-|   ├── xxx.jpg
-|   ├── ...
-├── bounding_box_test/ 
-└── query/ 
-```
+**We provide the extracted class-agnostic bounding boxes (on CUB-200-2011 and ILSVRC2012) and background cues (on PASCAL VOC12) at [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b)**.
 
-2. Then specify the input size in ```train_CCAM.py```
+![](images/CCAM_Background.png)
 
-```
-train_transform = transforms.Compose([
-        # the input size is decided by the adopted datasets
-        transforms.Resize(size=(256, 128)),
-        transforms.RandomHorizontalFlip(),
-        # transforms.RandomCrop(size=(448, 448)),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
-    ])
-```
+## Dependencies
 
-3. To train CCAM
+* Python 3
+* PyTorch 1.7.1
+* OpenCV-Python
+* Numpy
+* Scipy
+* MatplotLib
+* Yaml
+* Easydict
+
+## Dataset
+
+### CUB-200-2011
+
+You will need to download the images (JPEG format) in CUB-200-2011 dataset
+at [here](http://www.vision.caltech.edu/visipedia/CUB-200.html). Make sure your ```data/CUB_200_2011``` folder is structured as
+follows:
 
 ```
-OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=5 python train_CCAM.py --tag CCAM_Maket1501_MOCO --batch_size 128 --pretrained mocov2 --alpha 0.25
+├── CUB_200_2011/
+|   ├── images
+|   ├── images.txt
+|   ├── bounding_boxes.txt
+|   ...
+|   └── train_test_split.txt
 ```
 
-The code will create experiment folders for model checkpoints (./experiment/models), log files (.experiments/logs) and visualization (./experiments/images/).
+You will need to download the images (JPEG format) in ILSVRC2012 dataset at [here](https://image-net.org/challenges/LSVRC/2012/).
+Make sure your ```data/ILSVRC2012``` folder is structured as follows:
+
+### ILSVRC2012
 
 ```
-├── experiments/
-|   ├── checkpoints
-|   ├—— images
+├── ILSVRC2012/ 
+|   ├── train
+|   ├── val
+|   ├── val_boxes
+|   |   ├——val
+|   |   |   ├—— ILSVRC2012_val_00050000.xml
+|   |   |   ├—— ...
+|   ├── train.txt
+|   └── val.txt
 ```
 
-The activation maps (visualization and .npy files) will be save at 
+### PASCAL VOC2012
+
+You will need to download the images (JPEG format) in PASCAL VOC2012 dataset at [here](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/).
+Make sure your ```data/VOC2012``` folder is structured as follows:
 
 ```
-├── experiments/
-|   ├── predictions
-|   |   ├—— CCAM_CUB_MOCO@train@scale=0.5,1.0,1.5,2.0
-├── vis_cam/
-|   ├── CCAM_CUB_MOCO@train@scale=0.5,1.0,1.5,2.0
+├── VOC2012/
+|   ├── Annotations
+|   ├── ImageSets
+|   ├── SegmentationClass
+|   ├── SegmentationClassAug
+|   └── SegmentationObject
 ```
 
-3. To extract background cues
+## For WSOL task
+
+please refer to the directory of './WSOL'
 
 ```
-OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python inference_crf.py --experiment_name CCAM_VOC12_MOCO@train@scale=0.5,1.0,1.5,2.0 --threshold 0.3 --crf_iteration 10 --domain train
+cd WSOL
 ```
 
-The background cues will be save at 
+## For WSSS task
+
+please refer to the directory of './WSSS'
 
 ```
-├── experiments/
-|   ├── predictions
-|   |   ├—— CCAM_VOC12_MOCOV2@train@scale=0.5,1.0,1.5,2.0@t=0.3@ccam_inference_crf=10
+cd WSSS
 ```
 
-You can use the extracted background cues as pseudo supervision signal to train a saliency detector like [PoolNet](https://github.com/backseason/PoolNet) to further refine the background cues, and we provide our refined background cues at [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b).
+### Comparison with CAM
 
-### Reference
+![](images/CCAM_Heatmap.png)
+
+## CUSTOM DATASET [TODO]
+
+As CCAM is an unsupervised method, it can be applied to various scenarios, like ReID, Saliency detection, or skin lesion detection. We provide an example to apply CCAM on your custom dataset like 'Market-1501'.
+
+```
+cd CUSTOM
+```
+
+
+
+## Reference
 
 If you are using our code, please consider citing our paper.
 
@@ -85,6 +114,3 @@ If you are using our code, please consider citing our paper.
   year={2022}
 }
 ```
-
-This repository was based on PuzzleCAM and thanks for [Sanghyun Jo](https://github.com/OFRIN/PuzzleCAM) providing great codes.
-
