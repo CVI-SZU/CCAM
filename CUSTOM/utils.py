@@ -77,7 +77,7 @@ def visualize_heatmap(experiments, images, attmaps, epoch, cnt, phase='train', s
         attmap = np.uint8(attmap * 255)
         colormap = cv2.applyColorMap(cv2.resize(attmap, (w, h)), cmapy.cmap('seismic'))
         # save .npy data
-        # np.save('images/{}/{}/colormaps/epoch-{}-{}-image.npy'.format(experiments, phase, cnt, i), attmap)
+        # np.save('./experiments/images/{}/{}/colormaps/epoch-{}-{}-image.npy'.format(experiments, phase, cnt, i), attmap)
 
         grid = utils.make_grid(images[i].unsqueeze(0), nrow=1, padding=0, pad_value=0,
                          normalize=True, range=None)

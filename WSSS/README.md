@@ -13,18 +13,18 @@ Download the pretrained parameters (e.g., moco and detco) at [here](https://driv
 1. Train CCAM on PASCAL VOC2012 dataset (unsupervised parameters) 
 
 ```
-OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_VOC12.py --experiment CCAM_VOC12_MOCO --batch_size 128 --pretrained mocov2 --alpha 0.25
+OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_VOC12.py --tag CCAM_VOC12_MOCO --batch_size 128 --pretrained mocov2 --alpha 0.25
 ```
 
 or
 
 ```
-OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_VOC12.py --experiment CCAM_VOC12_MOCO --batch_size 128 --pretrained detco --alpha 0.25
+OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_VOC12.py --tag CCAM_VOC12_MOCO --batch_size 128 --pretrained detco --alpha 0.25
 ```
 
 We recommend to adopt a batch size 128 for better performance, but you can try another one like 32 if the memory of your device is not enough. (We trained CCAM on Tesla A100 with 40GB memory.)
 
-The code will create experiment folders for model checkpoints (./experiment/models), log files (.experiments/log) and visualization (./debug/images/).
+The code will create experiment folders for model checkpoints (./experiment/models), log files (.experiments/logs) and visualization (./experiments/images/).
 
 ```
 ├── experiments/

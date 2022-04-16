@@ -39,7 +39,7 @@ parser = argparse.ArgumentParser()
 ###############################################################################
 parser.add_argument('--seed', default=0, type=int)
 parser.add_argument('--num_workers', default=8, type=int)
-parser.add_argument('--data_dir', default='/data1/xjheng/dataset/VOC2012/', type=str)
+parser.add_argument('--data_dir', default='/data1/xjheng/dataset/Market1501/bounding_box_train/', type=str)
 
 ###############################################################################
 # Network
@@ -57,10 +57,6 @@ parser.add_argument('--depth', default=50, type=int)
 parser.add_argument('--lr', default=0.001, type=float)
 parser.add_argument('--wd', default=1e-4, type=float)
 parser.add_argument('--nesterov', default=True, type=str2bool)
-
-parser.add_argument('--image_size', default=448, type=int)
-parser.add_argument('--min_image_size', default=320, type=int)
-parser.add_argument('--max_image_size', default=640, type=int)
 
 parser.add_argument('--print_ratio', default=0.2, type=float)
 
@@ -109,40 +105,25 @@ if __name__ == '__main__':
 
     normalize_fn = Normalize(imagenet_mean, imagenet_std)
 
-    test_transform = transforms.Compose([
-        Normalize_For_Segmentation(imagenet_mean, imagenet_std),
-        Top_Left_Crop_For_Segmentation(args.image_size),
-        Transpose_For_Segmentation()
-    ])
-
     # data augmentation
     train_transform = transforms.Compose([
-        transforms.Resize(size=(512, 512)),
+        # the input size is decided by the adopted datasets
+        transforms.Resize(size=(256, 128)),
         transforms.RandomHorizontalFlip(),
-        transforms.RandomCrop(size=(448, 448)),
+        # transforms.RandomCrop(size=(448, 448)),
         transforms.ToTensor(),
         transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
     ])
 
-    meta_dic = read_json('./data/VOC_2012.json')
-    class_names = np.asarray(meta_dic['class_names'])
 
-    train_dataset = VOC_Dataset_For_Classification(args.data_dir, 'train_aug', train_transform)
-
-    train_dataset_for_seg = VOC_Dataset_For_Testing_CAM(args.data_dir, 'train', test_transform)
-    valid_dataset_for_seg = VOC_Dataset_For_Testing_CAM(args.data_dir, 'val', test_transform)
+    train_dataset = CUSTOM_Dataset(args.data_dir, train_transform)
 
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size, num_workers=args.num_workers, shuffle=True)
-    train_loader_for_seg = DataLoader(train_dataset_for_seg, batch_size=args.batch_size, num_workers=args.num_workers)
-    valid_loader_for_seg = DataLoader(valid_dataset_for_seg, batch_size=args.batch_size, num_workers=args.num_workers)
 
     log_func('[i] mean values is {}'.format(imagenet_mean))
     log_func('[i] std values is {}'.format(imagenet_std))
-    log_func('[i] The number of class is {}'.format(meta_dic['classes']))
     log_func('[i] train_transform is {}'.format(train_transform))
-    log_func('[i] test_transform is {}'.format(test_transform))
     log_func('[i] #train data'.format(len(train_dataset)))
-    log_func('[i] #valid data'.format(len(valid_dataset_for_seg)))
     log_func()
 
     val_iteration = len(train_loader)
@@ -209,9 +190,9 @@ if __name__ == '__main__':
     writer = SummaryWriter(tensorboard_dir)
 
     for epoch in range(args.max_epoch):
-        for iteration, (images, labels) in enumerate(train_loader):
+        for iteration, (images, _) in enumerate(train_loader):
 
-            images, labels = images.cuda(), labels.cuda()
+            images = images.cuda()
 
             optimizer.zero_grad()
             fg_feats, bg_feats, ccam = model(images)
@@ -225,7 +206,7 @@ if __name__ == '__main__':
             loss.backward()
             optimizer.step()
 
-            if epoch == 0 and iteration == 600:
+            if epoch == 0 and iteration == 100:
                 flag = check_positive(ccam)
                 print(f"Is Negative: {flag}")
             if flag:
@@ -241,7 +222,7 @@ if __name__ == '__main__':
             # For Log
             #################################################################################################
 
-            if (iteration + 1) % 100 == 0:
+            if (iteration + 1) % 50 == 0:
                 visualize_heatmap(args.tag, images.clone().detach(), ccam, 0, iteration)
                 loss, positive_loss, negative_loss = train_meter.get(clear=True)
                 learning_rate = float(get_learning_rate_from_optimizer(optimizer))

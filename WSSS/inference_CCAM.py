@@ -21,7 +21,7 @@ from torchvision import transforms
 
 from torch.utils.data import DataLoader
 
-from core.networks import *
+from core.model import *
 from core.datasets import *
 
 from tools.general.io_utils import *
@@ -37,7 +37,6 @@ from tools.ai.evaluate_utils import *
 from tools.ai.augment_utils import *
 from tools.ai.randaugment import *
 
-from core.model import *
 palette = np.array([[0, 0, 0],
                     [128, 0, 0],
                     [0, 128, 0],
