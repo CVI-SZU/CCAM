@@ -69,7 +69,7 @@ parser = argparse.ArgumentParser()
 ###############################################################################
 parser.add_argument('--seed', default=0, type=int)
 parser.add_argument('--num_workers', default=8, type=int)
-parser.add_argument('--data_dir', default='/home/lzr/data/VOC/VOC2012/', type=str)
+parser.add_argument('--data_dir', default='/data1/xjheng/dataset/VOC2012/', type=str)
 
 ###############################################################################
 # Network
@@ -189,8 +189,8 @@ if __name__ == '__main__':
             ori_w, ori_h = ori_image.size
             label = np.array([1])
             npy_path = pred_dir + image_id + '.npy'
-            # if os.path.isfile(npy_path):
-            #    continue
+            if os.path.isfile(npy_path):
+               continue
             strided_size = get_strided_size((ori_h, ori_w), 4)
             strided_up_size = get_strided_up_size((ori_h, ori_w), 16)
 

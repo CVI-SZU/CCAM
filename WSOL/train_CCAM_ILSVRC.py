@@ -23,7 +23,7 @@ cudnn.benchmark = True
 
 def parse_arg():
     parser = argparse.ArgumentParser(description="train entropy-guided adversarial refinement model on ILSRVC dataset")
-    parser.add_argument('--cfg', type=str, default='config/ilsrvc_resnet50_config.yaml',
+    parser.add_argument('--cfg', type=str, default='config/CCAM_ILSVRC.yaml',
                         help='experiment configuration filename')
     parser.add_argument('--batch_size', type=int, default=256)
     parser.add_argument('--lr', type=float, default=0.0001)
