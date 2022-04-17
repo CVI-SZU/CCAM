@@ -1,4 +1,4 @@
-# CCAM
+# CCAM (Unsupervised)
 
 Code repository for our
 paper "[CCAM: Contrastive learning of Class-agnostic Activation Map for Weakly Supervised Object Localization and Semantic Segmentation](https://arxiv.org/pdf/2203.13505.pdf)"
