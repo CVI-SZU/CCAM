@@ -48,43 +48,8 @@ def bboxes_reader(path):
         bboxes_list[labelIndex] = bbox_line
     return bboxes_list
 
-from imgaug import augmenters as iaa
-import random
 class ILSVRC2012(torch.utils.data.Dataset):
-    """
-    CUB200 dataset.
-
-    Variables
-    ----------
-        _root, str: Root directory of the dataset.
-        _train, bool: Load train/test data.
-        _transform, callable: A function/transform that takes in a PIL.Image
-            and transforms it.
-        _train_data, list of np.array.
-        _train_labels, list of int.
-        _train_parts, list np.array.
-        _train_boxes, list np.array.
-        _test_data, list of np.array.
-        _test_labels, list of int.
-        _test_parts, list np.array.
-        _test_boxes, list np.array.
-    """
     def __init__(self, root, input_size, crop_size, train=True, transform=None):
-        """
-        Load the dataset.
-
-        Args
-        ----------
-        root: str
-            Root directory of the dataset.
-        train: bool
-            train/test data split.
-        transform: callable
-            A function/transform that takes in a PIL.Image and transforms it.
-        resize: int
-            Length of the shortest of edge of the resized image. Used for transforming landmarks and bounding boxes.
-
-        """
         self._root = root
         self._train = train
         self._input_size = input_size
@@ -118,20 +83,6 @@ class ILSVRC2012(torch.utils.data.Dataset):
                 bbox[3] = bbox[3] * (self._input_size / image.size[1]) - (self._input_size-self._crop_size)/2
                 bbox.insert(0, index)
                 newBboxes.append(bbox)
-        # print(newBboxes)
-        # demo
-        # import cv2
-        # import matplotlib.pyplot as plt
-        # image = np.array(image)
-        # image = cv2.resize(image, (256, 256))
-        # image = image[128-112:128+112, 128-112:128+112]
-        # for i in range(len(newBboxes)):
-        #     cv2.rectangle(image, (int(newBboxes[i][0]), int(newBboxes[i][1])), (int(newBboxes[i][2]),
-        # int(newBboxes[i][3])), (0, 0, 255), 2)
-        # plt.imshow(image)
-        # plt.show()
-        # plt.close()
-        # image = PIL.Image.fromarray(image)
 
         # apply transformation
         if self._transform is not None:
