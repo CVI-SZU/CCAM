@@ -9,8 +9,6 @@ import numpy as np
 
 from PIL import Image
 
-from core.aff_utils import *
-
 from tools.ai.augment_utils import *
 from tools.ai.torch_utils import one_hot_embedding
 
