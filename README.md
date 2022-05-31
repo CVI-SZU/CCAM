@@ -4,6 +4,9 @@ Code repository for our
 paper "[CCAM: Contrastive learning of Class-agnostic Activation Map for Weakly Supervised Object Localization and Semantic Segmentation](https://arxiv.org/pdf/2203.13505.pdf)"
 in CVPR 2022.
 
+:heart_eyes: Code repository for our paper "[CLIMS: Cross Language Image Matching for Weakly Supervised Semantic Segmentation](https://arxiv.org/abs/2203.02668)" in **CVPR 2022** is also available at [here](https://github.com/CVI-SZU/CLIMS).
+
+
 ![](images/CCAM_Network.png)
 
 The repository includes full training, evaluation, and visualization codes
@@ -13,7 +16,6 @@ on [CUB-200-2011](http://www.vision.caltech.edu/visipedia/CUB-200.html), [ILSVRC
 
 ![](images/CCAM_Background.png)
 
-:heart_eyes: Code repository for our paper "[CLIMS: Cross Language Image Matching for Weakly Supervised Semantic Segmentation](https://arxiv.org/abs/2203.02668)" in **CVPR 2022** is also available at [here](https://github.com/CVI-SZU/CLIMS).
 
 
 ## Dependencies
