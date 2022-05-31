@@ -13,6 +13,9 @@ on [CUB-200-2011](http://www.vision.caltech.edu/visipedia/CUB-200.html), [ILSVRC
 
 ![](images/CCAM_Background.png)
 
+:heart_eyes: Code repository for our paper "[CLIMS: Cross Language Image Matching for Weakly Supervised Semantic Segmentation](https://arxiv.org/abs/2203.02668)" in **CVPR 2022** is also available at [here](https://github.com/CVI-SZU/CLIMS).
+
+
 ## Dependencies
 
 * Python 3
