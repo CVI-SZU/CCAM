@@ -23,7 +23,7 @@ os.environ["NUMEXPR_NUM_THREADS"] = "16"
 flag = True
 
 def parse_arg():
-    parser = argparse.ArgumentParser(description="train entropy-guided adversarial refinement model on CUB dataset")
+    parser = argparse.ArgumentParser(description="train CCAM on CUB dataset")
     parser.add_argument('--cfg', help='experiment configuration filename', type=str,
                         default='config/CCAM_CUB.yaml')
     parser.add_argument('--batch_size', type=int, default=16)
