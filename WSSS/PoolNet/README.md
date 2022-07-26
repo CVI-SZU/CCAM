@@ -1,5 +1,7 @@
 ### Refine background cues
 
+Download the following pre-trained models [GoogleDrive](https://drive.google.com/drive/folders/1Q2Fg2KZV8AzNdWNjNgcavffKJBChdBgy) | [BaiduYun (pwd: 27p5)](https://pan.baidu.com/share/init?surl=ehZheaqeU3pyvYQfRU9c6A) into dataset/pretrained folder.
+
 1. Adopt the extracted background cues as supervision signal to train PoolNet:
 ```
 OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python3 main_voc.py --arch resnet --mode train --train_root /path/to/your/dataset/VOC2012/ --pseudo_root ../experiments/predictions/path/to/your/background/cues/
