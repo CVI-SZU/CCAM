@@ -121,7 +121,7 @@ def main():
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, num_iters * config.EPOCHS)
 
     start_epoch = 0
-
+    global_best_threshold = 0
     # training part
     for epoch in range(start_epoch, config.EPOCHS):
         # training
@@ -138,8 +138,15 @@ def main():
              "Flag": flag,
              }, '{}/checkpoints/{}/current_epoch.pth'.format(config.DEBUG, config.EXPERIMENT))
 
+        global_best_threshold = best_threshold
+
     print('Training finished...')
     print('--------------------')
+
+    print('Extracting class-agnostic bboxes using best threshold...')
+    print('--------------------------------------------------------')
+    extract(config, test_loader, model, global_best_threshold)
+    print('Finished.')
 
 
 def train(config, train_loader, model, criterion, optimizer, epoch, scheduler):
@@ -284,6 +291,9 @@ def test(config, test_loader, model, criterion, epoch):
             batch_time.update(time.time() - end)
             end = time.time()
 
+            # save predicted bboxes
+            save_bbox_as_json(config, config.EXPERIMENT, i, 0, pred_boxes, cls_name, img_name)
+
             # print the current testing status
             if i % config.PRINT_FREQ == 0:
                 print('Epoch: [{0}][{1}/{2}]\t'
@@ -309,6 +319,53 @@ def test(config, test_loader, model, criterion, epoch):
 
     return current_best_CorLoc, current_best_CorLoc_threshold
 
+def extract(config, test_loader, model, threshold):
+
+    # set up the averagemeters
+    batch_time = AverageMeter()
+
+    # switch to evaluate mode
+    model.eval()
+    global flag
+    # record the time
+    end = time.time()
+
+    # extracting
+    with torch.no_grad():
+        for i, (input, target, bboxes, cls_name, img_name) in enumerate(test_loader):
+
+            # data to gpu
+            input = input.cuda()
+
+            # inference the model
+            fg_feats, bg_feats, ccam = model(input)
+
+            if flag:
+                ccam = 1 - ccam
+
+            pred_boxes = []  # x0,y0, x1, y1
+            for j in range(input.size(0)):
+                estimated_boxes_at_each_thr, _ = compute_bboxes_from_scoremaps(
+                    ccam[j, 0, :, :].detach().cpu().numpy().astype(np.float32), [threshold], input.size(-1) / am.size(-1),
+                    multi_contour_eval=False)
+                pred_boxes.append(estimated_boxes_at_each_thr[0])
+
+            # measure elapsed time
+            torch.cuda.synchronize()
+
+            batch_time.update(time.time() - end)
+            end = time.time()
+
+            # save predicted bboxes
+            save_bbox_as_json(config, config.EXPERIMENT, i, 0, pred_boxes, cls_name, img_name)
+
+            # print the current testing status
+            if i % config.PRINT_FREQ == 0:
+                print('[{0}/{1}]\t'
+                      'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
+                      .format(i, len(test_loader), batch_time=batch_time), flush=True)
+
+                visualize_heatmap(config, config.EXPERIMENT, input.clone().detach(), ccam, cls_name, img_name, phase='test', bboxes=pred_boxes, gt_bboxes=bboxes)
 
 if __name__ == '__main__':
     main()

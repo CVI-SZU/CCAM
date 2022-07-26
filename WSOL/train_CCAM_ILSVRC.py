@@ -9,7 +9,7 @@ import torch.backends.cudnn as cudnn
 from utils import *
 from dataset.ilsvrc import *
 from models.loss import *
-
+import random
 from models.model import *
 from torchvision import transforms
 import yaml
@@ -84,9 +84,8 @@ def main():
 
 
 flag = True
-
-
 def main_worker(local_rank, nprocs, config, args):
+    global flag
     dist.init_process_group(backend='nccl', init_method=f'tcp://127.0.0.1:{config.PORT}', world_size=nprocs,
                             rank=local_rank)
 
@@ -469,6 +468,9 @@ def evaluate(config, test_loader, model, criterion, threshold, flag, local_rank,
 
             batch_time.update(time.time() - end)
             end = time.time()
+
+            # save predicted bboxes
+            save_bbox_as_json(config, config.EXPERIMENT, i, local_rank, pred_boxes, cls_name, img_name)
 
             # print the current testing status
             if i % config.PRINT_FREQ == 0 and local_rank == 0:

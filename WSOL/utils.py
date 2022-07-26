@@ -200,8 +200,7 @@ def visualize_heatmap(config, experiments, images, attmaps, cls_name, image_name
 
 
 def save_bbox_as_json(config, experiments, cnt, rank, bboxes, cls_name, image_name, phase='train'):
-    offset = (config.INPUT_SIZE_480 - config.CROP_SIZE_448) / 2
-    # print(offset)
+    offset = (480 - 448) / 2
     pred_bbox = {}
     for i in range(len(bboxes)):
         box = bboxes[i][0]
@@ -210,13 +209,11 @@ def save_bbox_as_json(config, experiments, cnt, rank, bboxes, cls_name, image_na
         temp_bbox[2] = temp_bbox[2] - temp_bbox[0]
         temp_bbox[3] = temp_bbox[3] - temp_bbox[1]
         temp_save_box = [x / config.INPUT_SIZE_480 for x in temp_bbox]
-        if config.DATA == 'CUB':
+        if config.DATA == 'CUB_200_2011':
             pred_bbox[f'{config.ROOT}{phase}/{cls_name[i]}/{image_name[i]}.jpg'] = temp_save_box
         else:
             pred_bbox[f'{config.ROOT}{phase}/{cls_name[i]}/{image_name[i]}.JPEG'] = temp_save_box
 
-    # with open(os.path.join(f'debug/images/{experiments}/{phase}/pseudo_boxes/{cls_name[i]}_{image_name[i]}_bbox.json'), 'w') as fp:
-    #     json.dump(pred_bbox, fp)
     with open(os.path.join(f'debug/images/{experiments}/{phase}/pseudo_boxes/{cnt}_{rank}_bbox.json'), 'w') as fp:
         json.dump(pred_bbox, fp)
 
