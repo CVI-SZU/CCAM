@@ -26,7 +26,7 @@ The refined background cues will be saved as follow:
 |   |   ├—— xxxx.png
 ```
 
-**Please Note that** we just follow PoolNet train a saliency detector so the generated results actually activate the foreground (white). (1 - results/255) to obtain the real background cues.
+**Please Note that** we just follow PoolNet train a saliency detector so the generated results actually activate the foreground (white). **(1 - results/255)** to obtain the real background cues.
 ### Reference
 
 If you are using our code, please consider citing our paper.
