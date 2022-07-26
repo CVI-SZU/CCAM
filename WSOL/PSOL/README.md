@@ -9,3 +9,5 @@ bash run_cub.sh
 ```
 bash run_ilsvrc.sh
 ```
+
+**Please note that** we specify ResNet50 as default backbone to prevent the problem of OOM. If you have enough GPUs, please specify more gpu numbers in 'run_xx.sh'. In our experiments, we use **two tesla A100** to train a regressor with a backbone of DenseNet161.
