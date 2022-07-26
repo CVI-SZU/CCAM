@@ -10,7 +10,8 @@ Download the pretrained parameters (e.g., moco and detco) at [here](https://driv
 |   └── detco_200ep.pth
 ```
 
-Train CCAM on CUB-200-2011 dataset (supervised parameters) 
+#### CUB-200-2011
+Train CCAM on **CUB-200-2011** dataset (supervised parameters) 
 
 ```
 OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_CUB.py --experiment CCAM_CUB_IP --lr 0.0001 --batch_size 16 --pretrained supervised --alpha 0.05
@@ -42,7 +43,7 @@ The code will create experiment folders for model checkpoints (./debug/checkpoin
 |   |   ├—— ...
 ```
 
-
+#### ILSVRC2012
 Train CCAM on ILSVRC dataset (supervised parameters) 
 
 ```
