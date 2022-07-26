@@ -80,6 +80,8 @@ The code will create experiment folders for model checkpoints (./debug/checkpoin
 
 We also provide the extracted class-agnositc bounding boxes at [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b).
 
+**To train a regressor using the extracted pseudo bboxes, please refer to directory `./PSOL`**
+
 ### Reference
 
 If you are using our code, please consider citing our paper.

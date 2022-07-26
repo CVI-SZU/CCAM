@@ -1,0 +1,3 @@
+#!/bin/bash
+CUDA_VISIBLE_DEVICES=6 python training_CUB.py --loc_model resnet50 --pseudo_bboxes_path /path/to/your/pseudo_boxes/ --save_path CUB_resnet50_uns /path/to/CUB/
+CUDA_VISIBLE_DEVICES=6 python inference_CUB.py --loc_model resnet50 --cls_model efficientnetb7 --ckpt ./CUB_resnet50_uns/checkpoint_localization_cub_resnet50_99.pth.tar --cls_ckpt ./efficientnetb7-cub200-best-epoch.pth /path/to/CUB/
