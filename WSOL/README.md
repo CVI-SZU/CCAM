@@ -36,6 +36,8 @@ The code will create experiment folders for model checkpoints (./debug/checkpoin
 |   ├—— images
 |   |   ├—— CCAM_CUB_MOCO
 |   |   |   ├—— train
+|   |   |   |   ├—— colormaps
+|   |   |   |   ├—— pseudo_boxes
 |   |   |   ├—— test
 |   |   ├—— ...
 ```
@@ -57,6 +59,20 @@ or
 
 ```
 OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_ILSVRC.py --experiment CCAM_ILSVRC_DETCO --lr 0.0001 --batch_size 256 --pretrained detco --alpha 0.05 --port 2345
+```
+
+The code will create experiment folders for model checkpoints (./debug/checkpoint), log files (./log) and visualization (./debug/images/).
+
+```
+├── debug/
+|   ├── checkpoints
+|   ├—— images
+|   |   ├—— CCAM_ILSVRC_MOCO
+|   |   |   ├—— train
+|   |   |   |   ├—— colormaps
+|   |   |   |   ├—— pseudo_boxes
+|   |   |   ├—— test
+|   |   ├—— ...
 ```
 
 **Note that** we use a tesla A100 to train the model and please specify more GPUs to prevent the problem of OOM when training on ILSVRC2012 dataset.
