@@ -4,10 +4,14 @@ from tools.ai.demo_utils import *
 from sklearn.metrics import average_precision_score
 from torchvision import utils
 
+# def check_positive(am):
+#     am[am > 0.5] = 1
+#     am[am <= 0.5] = 0
+#     edge_mean = (am[0, 0, 0, :].mean() + am[0, 0, :, 0].mean() + am[0, 0, -1, :].mean() + am[0, 0, :, -1].mean()) / 4
+#     return edge_mean > 0.5
+
 def check_positive(am):
-    am[am > 0.5] = 1
-    am[am <= 0.5] = 0
-    edge_mean = (am[0, 0, 0, :].mean() + am[0, 0, :, 0].mean() + am[0, 0, -1, :].mean() + am[0, 0, :, -1].mean()) / 4
+    edge_mean = (am[:, 0, 0:4, :].mean() + am[:, 0, :, 0:4].mean() + am[:, 0, -4:, :].mean() + am[:, 0, :, -4:].mean()) / 4
     return edge_mean > 0.5
 
 imagenet_mean = [0.485, 0.456, 0.406]

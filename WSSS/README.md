@@ -38,7 +38,7 @@ The code will create experiment folders for model checkpoints (./experiment/mode
 OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python inference_CCAM.py --tag CCAM_VOC12_MOCO --domain train
 ```
 
-The activation maps (visualization and .npy files) will be save at 
+The activation maps (visualization and .npy files) will be saved at 
 
 ```
 ├── experiments/
@@ -54,7 +54,7 @@ The activation maps (visualization and .npy files) will be save at
 OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python inference_crf.py --experiment_name CCAM_VOC12_MOCO@train@scale=0.5,1.0,1.5,2.0 --threshold 0.3 --crf_iteration 10 --domain train
 ```
 
-The background cues will be save at 
+The background cues will be saved at 
 
 ```
 ├── experiments/
@@ -69,6 +69,14 @@ You can use the extracted background cues as pseudo supervision signal to train 
 If you are using our code, please consider citing our paper.
 
 ```
+@InProceedings{Xie_2022_CVPR,
+    author    = {Xie, Jinheng and Xiang, Jianfeng and Chen, Junliang and Hou, Xianxu and Zhao, Xiaodong and Shen, Linlin},
+    title     = {C2AM: Contrastive Learning of Class-Agnostic Activation Map for Weakly Supervised Object Localization and Semantic Segmentation},
+    booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+    month     = {June},
+    year      = {2022},
+    pages     = {989-998}
+}
 @article{xie2022contrastive,
   title={Contrastive learning of Class-agnostic Activation Map for Weakly Supervised Object Localization and Semantic Segmentation},
   author={Xie, Jinheng and Xiang, Jianfeng and Chen, Junliang and Hou, Xianxu and Zhao, Xiaodong and Shen, Linlin},

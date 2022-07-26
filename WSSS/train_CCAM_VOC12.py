@@ -178,7 +178,7 @@ if __name__ == '__main__':
         model = nn.DataParallel(model)
 
     load_model_fn = lambda: load_model(model, model_path, parallel=the_number_of_gpu > 1)
-    save_model_fn = lambda: save_model(model, model_path, parallel=the_number_of_gpu > 1)
+    # save_model_fn = lambda: save_model(model, model_path, parallel=the_number_of_gpu > 1)
 
     ###################################################################################
     # Loss, Optimizer
@@ -275,7 +275,10 @@ if __name__ == '__main__':
         #################################################################################################
         # Evaluation
         #################################################################################################
-        save_model_fn()
+        # save_model_fn()
+        torch.save({'state_dict': model.module.state_dict() if (the_number_of_gpu > 1) else model.state_dict(),
+                    'flag': flag}, model_path)
+
         log_func('[i] save model')
 
     print(args.tag)
