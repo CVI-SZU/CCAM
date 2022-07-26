@@ -40,6 +40,27 @@ The code will create experiment folders for model checkpoints (./debug/checkpoin
 |   |   ├—— ...
 ```
 
+
+Train CCAM on ILSVRC dataset (supervised parameters) 
+
+```
+OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_ILSVRC.py --experiment CCAM_ILSVRC_IP --lr 0.0001 --batch_size 256 --pretrained supervised --alpha 0.05
+```
+
+Train CCAM on ILSVRC dataset (unsupervised parameters) 
+
+```
+OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_ILSVRC.py --experiment CCAM_ILSVRC_MOCO --lr 0.0001 --batch_size 256 --pretrained mocov2 --alpha 0.05
+```
+
+or
+
+```
+OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_ILSVRC.py --experiment CCAM_ILSVRC_DETCO --lr 0.0001 --batch_size 256 --pretrained detco --alpha 0.05
+```
+
+**Note that** we use a tesla A100 to train the model and please specify more GPUs to prevent the problem of OOM when training on ILSVRC2012 dataset.
+
 We also provide the extracted class-agnositc bounding boxes at [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b).
 
 ### Reference
