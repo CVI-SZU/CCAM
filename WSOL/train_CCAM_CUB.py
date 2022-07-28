@@ -291,9 +291,6 @@ def test(config, test_loader, model, criterion, epoch):
             batch_time.update(time.time() - end)
             end = time.time()
 
-            # save predicted bboxes
-            save_bbox_as_json(config, config.EXPERIMENT, i, 0, pred_boxes, cls_name, img_name)
-
             # print the current testing status
             if i % config.PRINT_FREQ == 0:
                 print('Epoch: [{0}][{1}/{2}]\t'
