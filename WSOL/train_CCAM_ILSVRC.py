@@ -261,7 +261,7 @@ def train(config, train_loader, model, criterion, optimizer, epoch, scheduler, l
         torch.cuda.synchronize()
         batch_time.update(time.time() - end)
         end = time.time()
-        if epoch == 0 and i == 1000:
+        if epoch == 0 and i == len(train_loader):
             flag = check_positive(ccam)
             print(f"Is Negative: {flag}")
         if flag:

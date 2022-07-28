@@ -185,7 +185,7 @@ def train(config, train_loader, model, criterion, optimizer, epoch, scheduler):
         losses_bg_fg.update(loss2.data.item(), input.size(0))
         losses_fg_fg.update(loss3.data.item(), input.size(0))
 
-        if epoch == 0 and i == 300:
+        if epoch == 0 and i == len(train_loader):
             flag = check_positive(ccam)
             print(f"Is Negative: {flag}")
         if flag:
