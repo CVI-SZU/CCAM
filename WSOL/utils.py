@@ -347,7 +347,6 @@ def creat_folder(config, args):
         os.mkdir('{}/checkpoints/{}'.format(config.DEBUG, config.EXPERIMENT))
     if not os.path.exists('{}/images/{}'.format(config.DEBUG, config.EXPERIMENT)):
         os.mkdir('{}/images/{}'.format(config.DEBUG, config.EXPERIMENT))
-        os.mknod('{}/images/{}/log.txt'.format(config.DEBUG, config.EXPERIMENT))
         os.mkdir('{}/images/{}/train'.format(config.DEBUG, config.EXPERIMENT))
         os.mkdir('{}/images/{}/test'.format(config.DEBUG, config.EXPERIMENT))
         os.mkdir('{}/images/{}/train/colormaps'.format(config.DEBUG, config.EXPERIMENT))
