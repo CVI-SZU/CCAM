@@ -208,7 +208,7 @@ def save_bbox_as_json(config, experiments, cnt, rank, bboxes, cls_name, image_na
         temp_bbox = [box[0] + offset, box[1] + offset, box[2] + offset, box[3] + offset]
         temp_bbox[2] = temp_bbox[2] - temp_bbox[0]
         temp_bbox[3] = temp_bbox[3] - temp_bbox[1]
-        temp_save_box = [x / config.INPUT_SIZE_480 for x in temp_bbox]
+        temp_save_box = [x / 480 for x in temp_bbox]
         if config.DATA == 'CUB_200_2011':
             pred_bbox[f'{config.ROOT}{phase}/{cls_name[i]}/{image_name[i]}.jpg'] = temp_save_box
         else:
