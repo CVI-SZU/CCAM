@@ -225,7 +225,7 @@ if __name__ == '__main__':
             loss.backward()
             optimizer.step()
 
-            if epoch == 0 and iteration == 600:
+            if epoch == 0 and iteration == len(train_loader):
                 flag = check_positive(ccam)
                 print(f"Is Negative: {flag}")
             if flag:
