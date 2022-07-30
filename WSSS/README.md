@@ -10,7 +10,7 @@ Download the pretrained parameters (e.g., moco and detco) at [here](https://driv
 |   └── detco_200ep.pth
 ```
 
-1. Train CCAM on PASCAL VOC2012 dataset (unsupervised parameters) 
+1. Train CCAM on PASCAL VOC2012 dataset (unsupervised parameters). **Please ensure the batch size is larger than 32. You can specify more GPUs to allocate enough memory.**
 
 ```
 OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_VOC12.py --tag CCAM_VOC12_MOCO --batch_size 128 --pretrained mocov2 --alpha 0.25
