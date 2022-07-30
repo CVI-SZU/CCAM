@@ -22,7 +22,7 @@ or
 OMP_NUM_THREADS=16 CUDA_VISIBLE_DEVICES=0 python train_CCAM_VOC12.py --tag CCAM_VOC12_MOCO --batch_size 128 --pretrained detco --alpha 0.25
 ```
 
-We recommend to adopt a batch size 128 for better performance, but you can try another one like 32 if the memory of your device is not enough. (We trained CCAM on Tesla A100 with 40GB memory.)
+We recommend to adopt a batch size 128 for better performance, but you can try another one like 32 if the memory of your device is not enough. **(We trained CCAM on Tesla A100 with 40GB memory.)**
 
 The code will create experiment folders for model checkpoints (./experiment/models), log files (.experiments/logs) and visualization (./experiments/images/).
 
