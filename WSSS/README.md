@@ -66,7 +66,9 @@ The background cues will be saved at
 You can use the extracted background cues as pseudo supervision signal to train a saliency detector like [PoolNet](https://github.com/backseason/PoolNet) to further refine the background cues and we provide the code for background cues refinement in the directory `./PoolNet`. We also provide our refined background cues at [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b).
 
 5. CAMs Refinement
-You can refer to this [issue](https://github.com/CVI-SZU/CCAM/issues/3#issuecomment-1198495730)
+```shell
+python3 evaluate.py --experiment_name you_experiment_name --domain train --data_dir path/to/your/data --with_bg_cues True --bg_dir path/to/your/background cues
+```
 
 ### Reference
 
