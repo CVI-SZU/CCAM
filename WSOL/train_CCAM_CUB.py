@@ -343,7 +343,7 @@ def extract(config, test_loader, model, threshold):
             pred_boxes = []  # x0,y0, x1, y1
             for j in range(input.size(0)):
                 estimated_boxes_at_each_thr, _ = compute_bboxes_from_scoremaps(
-                    ccam[j, 0, :, :].detach().cpu().numpy().astype(np.float32), [threshold], input.size(-1) / am.size(-1),
+                    ccam[j, 0, :, :].detach().cpu().numpy().astype(np.float32), [threshold], input.size(-1) / ccam.size(-1),
                     multi_contour_eval=False)
                 pred_boxes.append(estimated_boxes_at_each_thr[0])
 
