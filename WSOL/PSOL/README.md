@@ -1,7 +1,7 @@
 ### Train a regressor using the psuedo bboxes extracted from CCAM
 #### Split train and test set
 ```shell
-python train_test_split.py --data_dir path/to/your/dataset
+python3 train_test_split.py --data_dir path/to/your/dataset
 ```
 #### CUB-200-2011, plase specify the path to dataset and pseudo bboxes and type of backbone in `run_cub.sh`. For convenience, we provide the pretrained classifier (efficientnetb7) on CUB at [here](https://drive.google.com/file/d/1FvtrT-TybVDBkYmRpWeAU4i0l3xLo10V/view?usp=sharing) and put it on the current directory.
 

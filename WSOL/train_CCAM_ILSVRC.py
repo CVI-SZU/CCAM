@@ -201,6 +201,9 @@ def main_worker(local_rank, nprocs, config, args):
     test_sampler.set_epoch(0)
     evaluate(config, test_loader, model, criterion, threshold, local_rank, nprocs)
 
+    # extract class-agnostic bboxes
+    extract(config, train_loader, model, threshold, flag, local_rank)
+
     if local_rank == 0:
         torch.save(
             {"state_dict": model.module.state_dict(),
@@ -494,6 +497,62 @@ def evaluate(config, test_loader, model, criterion, threshold, flag, local_rank,
                 correct_loc,
                 threshold))
 
+def extract(config, train_loader, model, threshold, flag, local_rank):
+    # set up the averagemeters
+    batch_time = AverageMeter()
+
+    print(f'use threshold: {threshold}')
+
+    # switch to evaluate mode
+    model.eval()
+
+    # record the time
+    end = time.time()
+
+    total = 0
+
+    # testing
+    with torch.no_grad():
+        for i, (input, target, cls_name, img_name) in enumerate(train_loader):
+
+            # data to gpu
+            input = input.cuda(local_rank, non_blocking=True)
+
+            # inference the model
+            fg_feats, bg_feats, ccam = model(input)
+            if flag:
+                ccam = 1 - ccam
+
+            pred_boxes_t = []  # x0,y0, x1, y1
+            for j in range(input.size(0)):
+                estimated_boxes_at_each_thr, _ = compute_bboxes_from_scoremaps(
+                    ccam[j, 0, :, :].detach().cpu().numpy().astype(np.float32), [threshold], input.size(-1) / ccam.size(-1),
+                    multi_contour_eval=False)
+                pred_boxes_t.append(estimated_boxes_at_each_thr[0])
+
+            total += input.size(0)
+
+            pred_boxes = pred_boxes_t
+
+            torch.distributed.barrier()
+
+            # measure elapsed time
+            torch.cuda.synchronize()
+
+            batch_time.update(time.time() - end)
+            end = time.time()
+
+            # save predicted bboxes
+            save_bbox_as_json(config, config.EXPERIMENT, i, local_rank, pred_boxes, cls_name, img_name)
+
+            # print the current testing status
+            if i % config.PRINT_FREQ == 0 and local_rank == 0:
+                print('Test: [{0}][{1}/{2}]\t'
+                      'Time {batch_time.val:.3f} ({batch_time.avg:.3f})'.format(
+                    0, i, len(train_loader), batch_time=batch_time), flush=True)
+                # image debug
+                visualize_heatmap(config, config.EXPERIMENT, input.clone().detach(), ccam, cls_name, img_name,
+                                  phase='train', bboxes=pred_boxes)
 
 if __name__ == '__main__':
     main()

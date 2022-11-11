@@ -145,7 +145,7 @@ def main():
 
     print('Extracting class-agnostic bboxes using best threshold...')
     print('--------------------------------------------------------')
-    extract(config, test_loader, model, global_best_threshold)
+    extract(config, train_loader, model, global_best_threshold)
     print('Finished.')
 
 
@@ -316,7 +316,7 @@ def test(config, test_loader, model, criterion, epoch):
 
     return current_best_CorLoc, current_best_CorLoc_threshold
 
-def extract(config, test_loader, model, threshold):
+def extract(config, train_loader, model, threshold):
 
     # set up the averagemeters
     batch_time = AverageMeter()
@@ -329,7 +329,7 @@ def extract(config, test_loader, model, threshold):
 
     # extracting
     with torch.no_grad():
-        for i, (input, target, bboxes, cls_name, img_name) in enumerate(test_loader):
+        for i, (input, target, cls_name, img_name) in enumerate(train_loader):
 
             # data to gpu
             input = input.cuda()
@@ -360,9 +360,9 @@ def extract(config, test_loader, model, threshold):
             if i % config.PRINT_FREQ == 0:
                 print('[{0}/{1}]\t'
                       'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
-                      .format(i, len(test_loader), batch_time=batch_time), flush=True)
+                      .format(i, len(train_loader), batch_time=batch_time), flush=True)
 
-                visualize_heatmap(config, config.EXPERIMENT, input.clone().detach(), ccam, cls_name, img_name, phase='test', bboxes=pred_boxes, gt_bboxes=bboxes)
+                visualize_heatmap(config, config.EXPERIMENT, input.clone().detach(), ccam, cls_name, img_name, phase='train', bboxes=pred_boxes)
 
 if __name__ == '__main__':
     main()
