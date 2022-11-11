@@ -162,11 +162,11 @@ class CUB200(torch.utils.data.Dataset):
         """Prepare the data for train/test split and save onto disk."""
 
         # load the list into numpy arrays
-        image_path = self._root + '/CUB_200_2011/images/'
-        id2name = np.genfromtxt(self._root + '/CUB_200_2011/images.txt', dtype=str)
-        id2train = np.genfromtxt(self._root + '/CUB_200_2011/train_test_split.txt', dtype=int)
-        id2part = np.genfromtxt(self._root + '/CUB_200_2011/parts/part_locs.txt', dtype=float)
-        id2box = np.genfromtxt(self._root + '/CUB_200_2011/bounding_boxes.txt', dtype=float)
+        image_path = self._root + '/images/'
+        id2name = np.genfromtxt(self._root + '/images.txt', dtype=str)
+        id2train = np.genfromtxt(self._root + '/train_test_split.txt', dtype=int)
+        id2part = np.genfromtxt(self._root + '/parts/part_locs.txt', dtype=float)
+        id2box = np.genfromtxt(self._root + '/bounding_boxes.txt', dtype=float)
 
         # creat empty lists
         train_data = []

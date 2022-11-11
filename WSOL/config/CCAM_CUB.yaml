@@ -1,4 +1,4 @@
-ROOT: '/data1/xjheng/dataset/cub-200-2011/'
+ROOT: '/data1/xjheng/dataset/cub-200-2011/CUB_200_2011/'
 DATA: 'CUB_200_2011'
 DEPTH: 50
 FDIM: 2048+1024
