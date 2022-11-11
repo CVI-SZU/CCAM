@@ -293,7 +293,7 @@ def test(config, test_loader, model, criterion, epoch):
 
             # print the current testing status
             if i % config.PRINT_FREQ == 0:
-                print('Epoch: [{0}][{1}/{2}]\t'
+                print('Test: [{0}][{1}/{2}]\t'
                       'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
                       'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
                       'BG-C-BG {loss_bgbg.val:.4f} ({loss_bgbg.avg:.4f})\t'
