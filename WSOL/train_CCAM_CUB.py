@@ -145,6 +145,18 @@ def main():
 
     print('Extracting class-agnostic bboxes using best threshold...')
     print('--------------------------------------------------------')
+
+    # data augmentation
+    train_transforms = transforms.Compose([
+        transforms.Resize(size=(480, 480)),
+        transforms.CenterCrop(size=(448, 448)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
+    ])
+    train_data = CUB200(root=config.ROOT, input_size=480, crop_size=448, train=True, transform=train_transforms)
+    train_loader = torch.utils.data.DataLoader(
+        train_data, batch_size=config.BATCH_SIZE, shuffle=True,
+        num_workers=config.WORKERS, pin_memory=False)
     extract(config, train_loader, model, global_best_threshold)
     print('Finished.')
 

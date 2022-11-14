@@ -202,6 +202,24 @@ def main_worker(local_rank, nprocs, config, args):
     evaluate(config, test_loader, model, criterion, threshold, local_rank, nprocs)
 
     # extract class-agnostic bboxes
+    train_transforms = transforms.Compose([
+        transforms.Resize(size=(480, 480)),
+        transforms.CenterCrop(size=(448, 448)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
+    ])
+
+    train_data = ILSVRC2012(root=config.ROOT, input_size=480, crop_size=448, train=True, transform=train_transforms)
+    if local_rank == 0:
+        print('load {} train images!'.format(len(train_data)))
+
+    train_sampler = torch.utils.data.distributed.DistributedSampler(train_data)
+
+    # wrap to dataloader
+    train_loader = torch.utils.data.DataLoader(
+        train_data, batch_size=config.BATCH_SIZE,
+        num_workers=config.WORKERS, pin_memory=False, sampler=train_sampler)
+
     extract(config, train_loader, model, threshold, flag, local_rank)
 
     if local_rank == 0:
