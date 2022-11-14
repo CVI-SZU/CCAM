@@ -201,6 +201,10 @@ def main_worker(local_rank, nprocs, config, args):
     test_sampler.set_epoch(0)
     evaluate(config, test_loader, model, criterion, threshold, local_rank, nprocs)
 
+    if local_rank == 0:
+        print('Extracting class-agnostic bboxes using best threshold...')
+        print('--------------------------------------------------------')
+
     # extract class-agnostic bboxes
     train_transforms = transforms.Compose([
         transforms.Resize(size=(480, 480)),

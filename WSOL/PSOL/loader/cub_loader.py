@@ -141,6 +141,15 @@ class CUBDataset(data.Dataset):
             bbox[2] = math.ceil(bbox[2] * w)
             bbox[1] = math.ceil(bbox[1] * h)
             bbox[3] = math.ceil(bbox[3] * h)
+
+            # visualize bbox
+            # import cv2
+            # imgc = cv2.rectangle(np.uint8(img), (int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])), (255, 0, 0), 2)
+            # import os
+            # if not os.path.exists('./test_visual_bboxes'):
+            #     os.mkdir('./test_visual_bboxes')
+            # cv2.imwrite(f'./test_visual_bboxes/{index}.png', imgc)
+
             img_i, bbox_i = RandomResizedBBoxCrop((self.crop_size))(img, bbox)
             img, bbox = RandomHorizontalFlipBBox()(img_i, bbox_i)
             bbox[2] = bbox[2] - bbox[0]

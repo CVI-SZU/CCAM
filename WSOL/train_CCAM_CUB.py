@@ -146,7 +146,6 @@ def main():
     print('Extracting class-agnostic bboxes using best threshold...')
     print('--------------------------------------------------------')
 
-    # data augmentation
     train_transforms = transforms.Compose([
         transforms.Resize(size=(480, 480)),
         transforms.CenterCrop(size=(448, 448)),
