@@ -6,8 +6,8 @@ We update the evaluation results using ResNet50 as both localization and classfi
 |:---------:|:-----------:|:----:|:----:|:----:|:----:|:----:|
 | ORNet     |   VGG16         | VGG16 |   67.74 / 80.77 |  86.20 | 52.05 / 63.94 | 68.27 |
 | PSOL      |  ResNet50       | ResNet50 |  70.68 / 86.64    |   90.00 | 53.98 / 63.08 | 65.44 |
-| C2AM (supervised pre-training)      |  ResNet50       | ResNet50 |  - / -    |   - | 54.41 / 64.77 | 67.80 |
-| C2AM (unsupervised pre-training)      |  ResNet50       | ResNet50 |  - / -    |   - | 54.65 / 65.05 | 68.07 |
+| C2AM (supervised initialization)      |  ResNet50       | ResNet50 |  - / -    |   - | 54.41 / 64.77 | 67.80 |
+| C2AM (unsupervised initialization)      |  ResNet50       | ResNet50 |  - / -    |   - | 54.65 / 65.05 | 68.07 |
 
 
 Code repository for our
