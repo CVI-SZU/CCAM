@@ -2,7 +2,7 @@
 ## Update (2022-12-12)
 We update the evaluation results using ResNet50 as both localization and classfication backbone.
 
-| Method    | Loc Back. | Cls Back.  | CUB (top1/top5)  | CUB (GT-Known)  | ImageNet (top1/top5) | ImageNet (GT-Known) |
+| Method    | Loc Back. | Cls Back.  | CUB (top1/top5 loc)  | CUB (GT-Known)  | ImageNet (top1/top5 loc) | ImageNet (GT-Known) |
 |:---------:|:-----------:|:----:|:----:|:----:|:----:|:----:|
 | ORNet     |   VGG16         | VGG16 |   67.74 / 80.77 |  86.20 | 52.05 / 63.94 | 68.27 |
 | PSOL      |  ResNet50       | ResNet50 |  70.68 / 86.64    |   90.00 | 53.98 / 63.08 | 65.44 |
