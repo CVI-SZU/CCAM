@@ -6,10 +6,9 @@ We update the evaluation results using ResNet50 as both localization and classfi
 |:---------:|:-----------:|:----:|:----:|:----:|:----:|:----:|
 | ORNet     |   VGG16         | VGG16 |    |  |   |
 | PSOL      |  ResNet50       | ResNet50 |  70.68 / 86.64    |   90.00 | 53.98 / 63.08 | 65.44 |
-| C2AM*      |  ResNet50       | ResNet50 |  - / -    |   - | 54.41 / 64.77 | 67.80 |
-| C2AM**      |  ResNet50       | ResNet50 |  - / -    |   - | 54.65 / 65.05 | 68.07 |
+| C2AM (supervised pre-training)      |  ResNet50       | ResNet50 |  - / -    |   - | 54.41 / 64.77 | 67.80 |
+| C2AM (unsupervised pre-training)      |  ResNet50       | ResNet50 |  - / -    |   - | 54.65 / 65.05 | 68.07 |
 
-* and ** indicate the supervised and unsupervised (moco) pretraining.
 
 Code repository for our
 paper "[C2AM: Contrastive learning of Class-agnostic Activation Map for Weakly Supervised Object Localization and Semantic Segmentation](https://openaccess.thecvf.com/content/CVPR2022/html/Xie_C2AM_Contrastive_Learning_of_Class-Agnostic_Activation_Map_for_Weakly_Supervised_CVPR_2022_paper.html)"
