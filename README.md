@@ -1,6 +1,6 @@
 # C2AM (Unsupervised)
 ## Update (2022-12-12)
-We update the evaluation results using ResNet50 as both localization and classfication backbone.
+We update the evaluation results using ResNet50 as both localization and classfication backbone. Table is also updated in our [Arxiv paper](https://arxiv.org/abs/2203.13505).
 
 | Method    | Loc Back. | Cls Back.  | CUB (top1/top5 loc)  | CUB (GT-Known)  | ImageNet (top1/top5 loc) | ImageNet (GT-Known) |
 |:---------:|:-----------:|:----:|:----:|:----:|:----:|:----:|
