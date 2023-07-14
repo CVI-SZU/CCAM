@@ -15,3 +15,6 @@ bash run_ilsvrc.sh
 ```
 
 **Please note that** we specify ResNet50 as default backbone to prevent the problem of OOM. If you have enough GPUs, please specify more gpu numbers in 'run_xx.sh'. In our experiments, we use **two tesla A100** to train a regressor with a backbone of DenseNet161.
+
+**Pretrained weights are available at [here](https://drive.google.com/drive/folders/1Uoyh3XLdz5VqWvWNjxoqMfRryu1nkQTL?usp=sharing)**
+
