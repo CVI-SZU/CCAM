@@ -208,8 +208,8 @@ for epoch in range(epochs):
     if not os.path.exists(savepath):
         os.makedirs(savepath)
     torch.save(model.state_dict(), os.path.join(savepath,
-                                                'checkpoint_localization_imagenet_ddt_' + args.locmodel + "_" + str(
+                                                'checkpoint_localization_imagenet_' + args.locmodel + "_" + str(
                                                     epoch + 1) + '.pth.tar'))
     torch.save(best_model_state, os.path.join(savepath,
-                                              'best_cls_localization_imagenet_ddt_' + args.locmodel + "_" + str(
+                                              'best_cls_localization_imagenet_' + args.locmodel + "_" + str(
                                                   epoch + 1) + '.pth.tar'))
