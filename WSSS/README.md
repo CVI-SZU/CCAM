@@ -1,6 +1,6 @@
 ### For WSSS task
 
-Download the pretrained parameters (e.g., moco and detco) at [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b?usp=sharing) and put them in the current directory.
+Download the pretrained parameters (e.g., moco and detco) from [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b?usp=sharing) and put them in the current directory.
 
 ```
 ├── WSSS/
@@ -63,7 +63,7 @@ The background cues will be saved at
 ```
 
 4. Refine the background cues
-You can use the extracted background cues as pseudo supervision signal to train a saliency detector like [PoolNet](https://github.com/backseason/PoolNet) to further refine the background cues and we provide the code for background cues refinement in the directory `./PoolNet`. We also provide our refined background cues at [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b).
+You can use the extracted background cues as pseudo supervision signal to train a saliency detector like [PoolNet](https://github.com/backseason/PoolNet) to further refine the background cues and we provide the code for background cues refinement in the directory `./PoolNet`. We also provide our refined background cues from [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b).
 
 5. CAMs Refinement
 ```shell
