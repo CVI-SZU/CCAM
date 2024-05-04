@@ -75,7 +75,7 @@ Make sure your ```data/ILSVRC2012``` folder is structured as follows:
 
 ### PASCAL VOC2012
 
-You will need to download the images (JPEG format) in PASCAL VOC2012 dataset at [here](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/).
+You will need to download the images (JPEG format) in PASCAL VOC2012 dataset from [here](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/).
 Make sure your ```data/VOC2012``` folder is structured as follows:
 
 ```
