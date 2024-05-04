@@ -1,6 +1,6 @@
 ### For WSOL task
 
-Download the pretrained parameters (e.g., moco and detco) at [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b?usp=sharing) and put them in the current directory.
+Download the pretrained parameters (e.g., moco and detco) from [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b?usp=sharing) and put them in the current directory.
 
 ```
 ├── WSOL/
@@ -78,7 +78,7 @@ The code will create experiment folders for model checkpoints (./debug/checkpoin
 
 **Note that** we use a tesla A100 to train the model and please specify more GPUs to prevent the problem of OOM when training on ILSVRC2012 dataset.
 
-We also provide the extracted class-agnositc bounding boxes at [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b).
+We also provide the extracted class-agnositc bounding boxes from [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b).
 
 **To train a regressor using the extracted pseudo bboxes, please refer to directory `./PSOL`**
 
