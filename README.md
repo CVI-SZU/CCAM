@@ -14,7 +14,7 @@ Code repository for our
 paper "[C2AM: Contrastive learning of Class-agnostic Activation Map for Weakly Supervised Object Localization and Semantic Segmentation](https://arxiv.org/abs/2203.13505)"
 in **CVPR 2022**.
 
-:heart_eyes: Code for our paper "[CLIMS: Cross Language Image Matching for Weakly Supervised Semantic Segmentation](https://arxiv.org/abs/2203.02668)" in **CVPR 2022** is also available at [here](https://openaccess.thecvf.com/content/CVPR2022/html/Xie_CLIMS_Cross_Language_Image_Matching_for_Weakly_Supervised_Semantic_Segmentation_CVPR_2022_paper.html).
+:heart_eyes: Code for our paper "[CLIMS: Cross Language Image Matching for Weakly Supervised Semantic Segmentation](https://arxiv.org/abs/2203.02668)" in **CVPR 2022** is also available [here](https://openaccess.thecvf.com/content/CVPR2022/html/Xie_CLIMS_Cross_Language_Image_Matching_for_Weakly_Supervised_Semantic_Segmentation_CVPR_2022_paper.html).
 
 
 ![](images/CCAM_Network.png)
@@ -22,7 +22,7 @@ in **CVPR 2022**.
 The repository includes full training, evaluation, and visualization codes
 on [CUB-200-2011](http://www.vision.caltech.edu/visipedia/CUB-200.html), [ILSVRC2012](https://image-net.org/challenges/LSVRC/2012/), and [PASCAL VOC2012](http://host.robots.ox.ac.uk/pascal/VOC/voc2012/) datasets.
 
-**We provide the extracted class-agnostic bounding boxes (on CUB-200-2011 and ILSVRC2012) and background cues (on PASCAL VOC12) at [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b)**.
+**We provide the extracted class-agnostic bounding boxes (on CUB-200-2011 and ILSVRC2012) and background cues (on PASCAL VOC12) from [here](https://drive.google.com/drive/folders/1erzARKq9g02-3pUGhY6-hyGzD-hoty5b)**.
 
 ![](images/CCAM_Background.png)
 
@@ -44,7 +44,7 @@ on [CUB-200-2011](http://www.vision.caltech.edu/visipedia/CUB-200.html), [ILSVRC
 ### CUB-200-2011
 
 You will need to download the images (JPEG format) in CUB-200-2011 dataset
-at [here](http://www.vision.caltech.edu/visipedia/CUB-200.html). Make sure your ```data/CUB_200_2011``` folder is structured as
+from [here](http://www.vision.caltech.edu/visipedia/CUB-200.html). Make sure your ```data/CUB_200_2011``` folder is structured as
 follows:
 
 ```
@@ -56,7 +56,7 @@ follows:
 |   └── train_test_split.txt
 ```
 
-You will need to download the images (JPEG format) in ILSVRC2012 dataset at [here](https://image-net.org/challenges/LSVRC/2012/).
+You will need to download the images (JPEG format) in ILSVRC2012 dataset from [here](https://image-net.org/challenges/LSVRC/2012/).
 Make sure your ```data/ILSVRC2012``` folder is structured as follows:
 
 ### ILSVRC2012
